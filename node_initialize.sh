@@ -10,9 +10,16 @@ function get_ip() {
     fi
 }
 
+
+
 get_ip
 RPCUSER=$(pwgen -1 18 -n)
 PASSWORD=$(pwgen -1 20 -n)
+
+if [[ ! -d /root/.pivx-params ]]; then
+  bash install-params.sh
+  sleep 5
+fi
 
 if [[ -f /root/.pivx/pivx.conf ]]; then
   rm  /root/.pivx/pivx.conf
