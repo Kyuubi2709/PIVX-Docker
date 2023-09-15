@@ -17,8 +17,10 @@ RPCUSER=$(pwgen -1 18 -n)
 PASSWORD=$(pwgen -1 20 -n)
 
 if [[ ! -d /root/.pivx-params ]]; then
+  cd /usr/local/bin
   bash install-params.sh
   sleep 5
+  cd
 fi
 
 if [[ -f /root/.pivx/pivx.conf ]]; then
