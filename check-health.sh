@@ -12,9 +12,9 @@ function max(){
     echo "$m" 
 }
 
-NETWORK_BLOCK_HEIGHT1=$(curl -SsL https://explorer.blocx.space/api/getblockcount)
-NETWORK_BLOCK_HEIGHT2=$(curl -SsL  https://ex1.blocx.space/api/ | jq .backend.blocks)
-CURRENT_NODE_HEIGHT=$(blocx-cli getblockchaininfo | jq '.blocks')
+NETWORK_BLOCK_HEIGHT1=$(curl -sk -m 10 https://chainz.cryptoid.info/pivx/api.dws?q=getblockcount)
+NETWORK_BLOCK_HEIGHT2=$(curl -sk -m 10 https://zkbitcoin.com/api/ | jq .blockbook.bestHeight)
+CURRENT_NODE_HEIGHT=$(pivx-cli getinfo | jq '.blocks')
 if ! egrep -o "^[0-9]+$" <<< "$CURRENT_NODE_HEIGHT" &>/dev/null; then
   echo "Daemon not working correct..."
   echo "Daemon not working correct..." >> /proc/1/fd/1
