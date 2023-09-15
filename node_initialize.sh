@@ -14,31 +14,29 @@ get_ip
 RPCUSER=$(pwgen -1 18 -n)
 PASSWORD=$(pwgen -1 20 -n)
 
-if [[ -f /root/.blocx/blocx.conf ]]; then
-  rm  /root/.blocx/blocx.conf
+if [[ -f /root/.pivx/pivx.conf ]]; then
+  rm  /root/.pivx/pivx.conf
 fi
 
-touch /root/.blocx/blocx.conf
-cat << EOF > /root/.blocx/blocx.conf
+touch /root/.pivx/pivx.conf
+cat << EOF > /root/.pivx/pivx.conf
 rpcuser=$RPCUSER
 rpcpassword=$PASSWORD
 rpcallowip=127.0.0.1
-listen=1
 server=1
 daemon=1
+masternode=1
 logtimestamps=1
-txindex=1
-znode=1
-externalip=$WANIP:12972
-znodeblsprivkey=$KEY
+externalip=$WANIP
+masternodeaddr=$WANIP:51472
+masternodeprivkey=$KEY
+maxconnections=256
 EOF
 
 while true; do
- if [[ $(pgrep blocxd) == "" ]]; then 
+ if [[ $(pgrep pivxd) == "" ]]; then 
    echo -e "Starting daemon..."
-   blocxd -daemon
+   pivxd -daemon
  fi
  sleep 120
 done
-
-
