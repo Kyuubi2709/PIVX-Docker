@@ -1,10 +1,11 @@
 ARG UBUNTUVER=20.04
 FROM ubuntu:${UBUNTUVER}
 LABEL com.centurylinklabs.watchtower.enable="true"
+ENV VERSION="5.5.0"
 RUN mkdir -p /root/.pivx
 RUN apt-get update && apt-get install -y  tar wget curl pwgen jq
-RUN wget https://github.com/PIVX-Project/PIVX/releases/download/v5.5.0/pivx-5.5.0-x86_64-linux-gnu.tar.gz -P /tmp
-RUN cd /tmp && tar -C /usr/local/bin --strip 1 -xf /tmp/pivx-5.5.0-x86_64-linux-gnu.tar.gz \
+RUN wget https://github.com/PIVX-Project/PIVX/releases/download/v${VERSION}/pivx-${VERSION}-x86_64-linux-gnu.tar.gz -P /tmp
+RUN cd /tmp && tar -C /usr/local/bin --strip 1 -xf /tmp/pivx-${VERSION}-x86_64-linux-gnu.tar.gz \
 && cp /usr/local/bin/bin/* /usr/local/bin
 COPY node_initialize.sh /node_initialize.sh
 COPY check-health.sh /check-health.sh
